@@ -1,4 +1,7 @@
-﻿Imports System.IO
+﻿'本作品采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。
+'http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Imports System.IO
 Imports System.Text
 Imports System.Security.Cryptography
 Public Class AESandMD5
@@ -129,7 +132,7 @@ Public Class AESandMD5
             Dim encryptor As ICryptoTransform = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV)
             Dim msEncrypt As New MemoryStream()
             Using csEncrypt As New CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write)
-                Using swEncrypt As New StreamWriter(csEncrypt)
+                Using swEncrypt As New StreamWriter(csEncrypt, Encoding.UTF8)
                     swEncrypt.Write(plainText)
                 End Using
                 encrypted = msEncrypt.ToArray()
@@ -169,7 +172,7 @@ Public Class AESandMD5
             Dim decryptor As ICryptoTransform = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV)
             Using msDecrypt As New MemoryStream(cipherByte)
                 Using csDecrypt As New CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read)
-                    Using srDecrypt As New StreamReader(csDecrypt)
+                    Using srDecrypt As New StreamReader(csDecrypt, Encoding.UTF8)
                         plaintext = srDecrypt.ReadToEnd()
                     End Using
                 End Using

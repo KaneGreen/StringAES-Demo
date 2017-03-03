@@ -1,4 +1,7 @@
-﻿Public Class MainForm
+﻿'本作品采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。
+'http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Public Class MainForm
     Private Const c_strKeyCharacters As String = "0123456789ABCDEF"
     Private Const c_strattachedCharacters As String = "GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/="
     Private Const c_strDefaultIV As String = "D49303DCDF5AAE2B128001EA48D19D04"
