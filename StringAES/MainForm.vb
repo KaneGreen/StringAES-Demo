@@ -1,6 +1,7 @@
 ﻿'本作品采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可。
 'http://creativecommons.org/licenses/by-nc-sa/4.0/
 
+Imports System.ComponentModel
 Public Class MainForm
     Private Const c_strKeyCharacters As String = "0123456789ABCDEF"
     Private Const c_strattachedCharacters As String = "GHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/="
@@ -150,14 +151,6 @@ Public Class MainForm
         Finally
             bytEncryptedBytes = Nothing
         End Try
-    End Sub
-    Private Sub EncryptStringForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        '退出询问
-        If MessageBox.Show("您确认要退出？", "消息：", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
-            e.Cancel = True
-        Else
-            objAesMd5 = Nothing
-        End If
     End Sub
     Private Sub txtHexCipherText_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtHexCipherText.KeyPress
         '检查输入的密文格式
@@ -558,6 +551,16 @@ Public Class MainForm
             Catch ex As Exception
                 txtInformationOut.Text = txtInformationOut.Text & vbCrLf & Now.ToString("yyyy/MM/dd HH:mm:ss") & "(" & Format(Now.Millisecond, "000") & ")" & vbCrLf & " 错误：从文件中读取密文失败。指定文件无法访问或是无效文件。" & vbCrLf
             End Try
+        End If
+    End Sub
+    Private Sub MainForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        '退出询问
+        If MessageBox.Show("您确认要退出？", "消息：", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+            e.Cancel = True
+        Else
+            objAesMd5.Dispose()
+            objAesMd5 = Nothing
+            blnCipherCalled = Nothing
         End If
     End Sub
     'Private Sub nudFeedbackSize_ValueChanged(sender As Object, e As EventArgs)
